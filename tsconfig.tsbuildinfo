@@ -1,0 +1,1 @@
+{"root":["./app.tsx","./index.tsx","./types.ts","./vite.config.ts","./components/dashboard.tsx","./components/pricecard.tsx","./components/ratiochart.tsx","./dist/assets/index-uapkyrbk.js","./services/geminiservice.ts","./services/storageservice.ts"],"version":"5.9.3"}

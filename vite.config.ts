@@ -9,16 +9,13 @@ export default defineConfig(({ mode }) => {
   return {
     plugins: [react()],
     server: {
-      port: 6666,
+      port: 5173,
       host: true
     },
     preview: {
-      port: 6666,
+      port: 5173,
       host: true
     },
-    define: {
-      // Polyfill process.env.API_KEY for the browser
-      'process.env.API_KEY': JSON.stringify(env.API_KEY)
-    }
+    define: {}
   };
 });

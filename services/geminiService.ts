@@ -1,11 +1,15 @@
 import { GoogleGenAI } from "@google/genai";
 import { MarketData, AnalysisResult } from "../types";
 
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+const apiKey = import.meta.env.VITE_GEMINI_API_KEY as string | undefined;
+const ai = apiKey ? new GoogleGenAI({ apiKey }) : null;
 
 // We cannot use JSON schema with Google Search tool, so we rely on prompt engineering and regex parsing.
 export const fetchLivePrices = async (): Promise<MarketData | null> => {
   try {
+    if (!ai) {
+      return null;
+    }
     const response = await ai.models.generateContent({
       model: "gemini-2.5-flash",
       contents: "Find the current live spot price of Gold (XAU) and Silver (XAG) per ounce in USD. Return the output strictly in this format: 'Gold: <price_number>, Silver: <price_number>'. Do not include any other text or currency symbols like $.",
@@ -48,6 +52,9 @@ export const fetchLivePrices = async (): Promise<MarketData | null> => {
 
 export const fetchMarketAnalysis = async (ratio: number): Promise<AnalysisResult> => {
   try {
+    if (!ai) {
+      return { text: "Analysis currently unavailable.", sources: [] };
+    }
     const response = await ai.models.generateContent({
       model: "gemini-2.5-flash",
       contents: `The current Gold/Silver ratio is ${ratio.toFixed(2)}. Briefly analyze what this level implies historically (e.g., is silver undervalued relative to gold?). Keep it under 100 words. Search for "current historical context gold silver ratio".`,
