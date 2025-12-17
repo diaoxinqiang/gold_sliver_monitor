@@ -1,0 +1,5 @@
+{
+  "name": "Gold/Silver Ratio Tracker",
+  "description": "A real-time dashboard tracking the Gold-to-Silver price ratio using Gemini AI with Google Search grounding for live market data.",
+  "requestFramePermissions": []
+}
